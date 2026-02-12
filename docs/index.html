@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DataMind by Veena</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              mint: "#D7F8E8",
+              lavender: "#E9E3FF", 
+              peach: "#FFE8E0",
+              lemon: "#FFF6D6",
+              violet: "#7B61FF",
+            },
+            fontFamily: {
+              display: ['Space Grotesk', 'sans-serif'],
+              body: ['Inter', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+      body { font-family: 'Inter', sans-serif; }
+      h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      const { useState } = React;
+
+      const Button = ({ children, className = "", onClick }) => (
+        <button 
+          onClick={onClick}
+          className={`px-6 py-3 rounded-full font-medium transition-all hover:scale-105 active:scale-95 ${className}`}
+        >
+          {children}
+        </button>
+      );
+
+      const Card = ({ children, className = "" }) => (
+        <div className={`rounded-3xl p-6 ${className}`}>
+          {children}
+        </div>
+      );
+
+      const App = () => {
+        const [activeTab, setActiveTab] = useState('dashboard');
+
+        return (
+          <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+            {/* Navigation */}
+            <nav className="flex items-center justify-between px-8 py-6 max-w-7xl mx-auto">
+              <div className="flex items-center gap-2">
+                <div className="w-10 h-10 bg-violet rounded-xl flex items-center justify-center text-white font-bold text-xl">D</div>
+                <span className="text-xl font-bold text-slate-900">DataMind</span>
+              </div>
+              <div className="hidden md:flex items-center gap-8 text-slate-600">
+                <a href="#" className="hover:text-violet transition-colors">Features</a>
+                <a href="#" className="hover:text-violet transition-colors">Pricing</a>
+                <a href="#" className="hover:text-violet transition-colors">About</a>
+              </div>
+              <Button className="bg-violet text-white shadow-lg hover:shadow-violet/30">
+                Get Started
+              </Button>
+            </nav>
+
+            {/* Hero Section */}
+            <section className="px-8 py-16 max-w-7xl mx-auto">
+              <div className="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                  <div className="inline-block px-4 py-2 bg-lavender text-violet rounded-full text-sm font-medium mb-6">
+                    ✨ Now with AI-powered insights
+                  </div>
+                  <h1 className="text-5xl lg:text-6xl font-bold text-slate-900 leading-tight mb-6">
+                    Make sense of your <span className="text-violet">data</span> in minutes
+                  </h1>
+                  <p className="text-lg text-slate-600 mb-8 leading-relaxed">
+                    Transform complex spreadsheets into beautiful visualizations. 
+                    No coding required. Just upload your data and watch the magic happen.
+                  </p>
+                  <div className="flex flex-wrap gap-4">
+                    <Button className="bg-violet text-white shadow-lg hover:shadow-violet/30 text-lg px-8 py-4">
+                      Start Free Trial
+                    </Button>
+                    <Button className="bg-white text-slate-700 border-2 border-slate-200 hover:border-violet hover:text-violet">
+                      Watch Demo
+                    </Button>
+                  </div>
+                  <div className="flex items-center gap-4 mt-8 text-sm text-slate-500">
+                    <span>✓ No credit card required</span>
+                    <span>✓ 14-day free trial</span>
+                    <span>✓ Cancel anytime</span>
+                  </div>
+                </div>
+
+                {/* Dashboard Preview */}
+                <div className="relative">
+                  <Card className="bg-white shadow-2xl border border-slate-100">
+                    <div className="flex items-center justify-between mb-6">
+                      <div className="flex gap-2">
+                        <div className="w-3 h-3 rounded-full bg-red-400"></div>
+                        <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
+                        <div className="w-3 h-3 rounded-full bg-green-400"></div>
+                      </div>
+                      <div className="flex gap-2">
+                        {['dashboard', 'analytics', 'reports'].map(tab => (
+                          <button
+                            key={tab}
+                            onClick={() => setActiveTab(tab)}
+                            className={`px-4 py-2 rounded-lg text-sm font-medium capitalize transition-colors ${
+                              activeTab === tab 
+                                ? 'bg-violet text-white' 
+                                : 'text-slate-600 hover:bg-slate-100'
+                            }`}
+                          >
+                            {tab}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Chart Area */}
+                    <div className="bg-mint rounded-2xl p-6 mb-4">
+                      <div className="flex items-end justify-between h-32 gap-2">
+                        {[40, 65, 45, 80, 55, 90, 70].map((h, i) => (
+                          <div 
+                            key={i}
+                            className="flex-1 bg-violet rounded-t-lg transition-all hover:opacity-80"
+                            style={{height: `${h}%`}}
+                          ></div>
+                        ))}
+                      </div>
+                      <div className="flex justify-between text-xs text-slate-500 mt-2">
+                        <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+                      </div>
+                    </div>
+
+                    {/* Stats Grid */}
+                    <div className="grid grid-cols-3 gap-4">
+                      <Card className="bg-peach p-4">
+                        <div className="text-2xl font-bold text-slate-900">2.4k</div>
+                        <div className="text-sm text-slate-600">Active Users</div>
+                      </Card>
+                      <Card className="bg-lemon p-4">
+                        <div className="text-2xl font-bold text-slate-900">98%</div>
+                        <div className="text-sm text-slate-600">Satisfaction</div>
+                      </Card>
+                      <Card className="bg-lavender p-4">
+                        <div className="text-2xl font-bold text-slate-900">+24%</div>
+                        <div className="text-sm text-slate-600">Growth</div>
+                      </Card>
+                    </div>
+                  </Card>
+
+                  {/* Floating Elements */}
+                  <div className="absolute -top-4 -right-4 bg-white rounded-2xl shadow-lg p-4 animate-bounce">
+                    <div className="text-2xl">📊</div>
+                  </div>
+                  <div className="absolute -bottom-4 -left-4 bg-white rounded-2xl shadow-lg p-4">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">↑</div>
+                      <span className="font-bold text-green-600">+12.5%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* Features Section */}
+            <section className="px-8 py-16 max-w-7xl mx-auto">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl font-bold text-slate-900 mb-4">Everything you need</h2>
+                <p className="text-slate-600 max-w-2xl mx-auto">
+                  Powerful features to help you understand your data and make better decisions.
+                </p>
+              </div>
+              
+              <div className="grid md:grid-cols-3 gap-6">
+                <Card className="bg-mint hover:shadow-lg transition-shadow">
+                  <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-2xl mb-4">⚡</div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">Lightning Fast</h3>
+                  <p className="text-slate-600">Process millions of rows in seconds with our optimized engine.</p>
+                </Card>
+                
+                <Card className="bg-lavender hover:shadow-lg transition-shadow">
+                  <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-2xl mb-4">🎨</div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">Beautiful Charts</h3>
+                  <p className="text-slate-600">Auto-generated visualizations that look stunning in presentations.</p>
+                </Card>
+                
+                <Card className="bg-peach hover:shadow-lg transition-shadow">
+                  <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-2xl mb-4">🔒</div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">Bank-Grade Security</h3>
+                  <p className="text-slate-600">Your data is encrypted and never shared with third parties.</p>
+                </Card>
+              </div>
+            </section>
+
+            {/* Footer */}
+            <footer className="px-8 py-8 max-w-7xl mx-auto border-t border-slate-200 mt-16">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 bg-violet rounded-lg flex items-center justify-center text-white font-bold">D</div>
+                  <span className="font-bold text-slate-900">DataMind</span>
+                </div>
+                <p className="text-slate-500 text-sm">© 2024 DataMind by Veena. All rights reserved.</p>
+              </div>
+            </footer>
+          </div>
+        );
+      };
+
+      const root = ReactDOM.createRoot(document.getElementById('root'));
+      root.render(<App />);
+    </script>
+  </body>
+</html>
